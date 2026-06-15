@@ -16,9 +16,10 @@ export const AppRouter = () => {
                 <Route path="/auth" element={<AuthLayout />}>
                     <Route path="register" element={<Register />} />
                     <Route path="login" element={<Login />} />
-                    <Route path="logout" element={<Logout />}></Route>
+                    <Route path="logout" element={<Logout />} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
-                <Route path="/"  element={<AppLayout />}>
+                <Route path="/" element={<AppLayout />}>
                     <Route
                         path=""
                         element={
@@ -34,7 +35,8 @@ export const AppRouter = () => {
                                 <BlogPost />
                             </ProtectedRoute>
                         }
-                    />
+                    >
+                    </Route>
                     <Route path='*' element={<NotFound />}/>
                 </Route>
             </Routes>

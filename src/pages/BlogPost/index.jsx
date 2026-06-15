@@ -9,6 +9,7 @@ import { CommentList } from '../../components/CommentList';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router';
 import { useEffect } from 'react';
+import { NotFound } from '../NotFound';
 
 export const BlogPost = () => {
     const { slug } = useParams();
@@ -17,12 +18,9 @@ export const BlogPost = () => {
 
     const post = posts.find((p) => p.slug == slug);
 
-    useEffect(() => {
-        if (!post) {
-            navigate('/not-found');
-            return null;
-        }
-    }, [navigate, post]);
+    if (!post) {
+        return <NotFound />; // Renderiza o componente diretamente aqui
+    }
 
     return (
         <main className={styles.main}>
