@@ -4,7 +4,6 @@ import { Login } from '../pages/Login';
 import { Logout } from '../pages/Logout';
 import { Feed } from '../pages/Feed';
 import { BlogPost } from '../pages/BlogPost';
-import { ProtectedRoute } from '../components/ProtectedRoute';
 import { AuthLayout } from '../layouts/Auth';
 import { AppLayout } from '../layouts/App';
 import { NotFound } from '../pages/NotFound';
@@ -23,17 +22,13 @@ export const AppRouter = () => {
                     <Route
                         path=""
                         element={
-                            <ProtectedRoute>
-                                <Feed />
-                            </ProtectedRoute>
+                            <Feed />
                         }
                     />
                     <Route
                         path="blog-post/:slug"
                         element={
-                            <ProtectedRoute>
-                                <BlogPost />
-                            </ProtectedRoute>
+                            <BlogPost />
                         }
                     >
                     </Route>

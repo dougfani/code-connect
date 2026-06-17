@@ -1,0 +1,31 @@
+.dialog {
+    border-radius: 16px;
+    background-color: #3d3d3d;
+    border: none;
+    width: 700px;
+}
+
+.dialog h2 {
+    font-size: 24px;
+}
+
+.dialog textarea {
+    width: 100%;
+    background-color: #bbbbbb;
+    border-radius: 8px;
+    padding: 10px 10px;
+    
+}
+
+.header {
+    text-align: left;
+    display: flex;
+}
+
+.header button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-left: auto;
+}

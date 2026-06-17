@@ -1,20 +1,16 @@
-import { Author } from "../Author"
-import styles from './cardpost.module.css'
+import { Author } from '../Author';
+import { ModalComment } from '../ModalComment';
+import styles from './cardpost.module.css';
 
-import { ThumbsUpButton } from "./ThumbsUpButton"
-import { IconChat } from "../icons/IconChat"
-import { IconButton } from "../IconButton"
-import { Link } from "react-router"
+import { ThumbsUpButton } from './ThumbsUpButton';
+import { Link } from 'react-router';
 
 export const CardPost = ({ post }) => {
     return (
         <article className={styles.card}>
             <header className={styles.header}>
                 <figure className={styles.figure}>
-                    <img
-                        src={post.cover}
-                        alt={`Capa do post de titulo: ${post.title}`}
-                    />
+                    <img src={post.cover} alt={`Capa do post de titulo: ${post.title}`} />
                 </figure>
             </header>
             <section className={styles.body}>
@@ -31,9 +27,7 @@ export const CardPost = ({ post }) => {
                         </p>
                     </div>
                     <div className={styles.action}>
-                        <IconButton>
-                            <IconChat />
-                        </IconButton>
+                        <ModalComment />
                         <p>
                             {post.comments.length}
                         </p>
@@ -42,5 +36,5 @@ export const CardPost = ({ post }) => {
                 <Author author={post.author} />
             </footer>
         </article>
-    )
-}
+    );
+};
