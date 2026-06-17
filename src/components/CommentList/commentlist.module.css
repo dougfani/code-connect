@@ -21,7 +21,7 @@
 }
 
 
-.comments h2 {
+.comments .title {
     color: var(--dark-gray);
     font-size: 22px;
     font-style: normal;

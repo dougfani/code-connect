@@ -4,7 +4,7 @@ import styles from './commentlist.module.css'
 export const CommentList = ({ comments }) => {
     return (
         <section className={styles.comments}>
-            <h2 className={styles.title}>
+            <h2>
                 Comentários
             </h2>
             <ul>
