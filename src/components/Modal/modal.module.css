@@ -1,31 +1,30 @@
 .dialog {
-    border-radius: 16px;
-    background-color: #3d3d3d;
+    border-radius: 32px;
+    background-color: #3E3E3F;
+    padding: 24px;
+    width: 960px;
+    max-width: 80%;
     border: none;
-    width: 700px;
-}
-
-.dialog h2 {
-    font-size: 24px;
-}
-
-.dialog textarea {
-    width: 100%;
-    background-color: #bbbbbb;
-    border-radius: 8px;
-    padding: 10px 10px;
-    
 }
 
 .header {
-    text-align: left;
     display: flex;
+    justify-content: flex-end;
 }
 
 .header button {
     background-color: transparent;
-    border: none;
-    color: #fff;
     cursor: pointer;
+    border: none;
+    color: #E1E1E1;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
     margin-left: auto;
+}
+
+::backdrop {
+    background-color: black;
+    opacity: 0.75;
 }
