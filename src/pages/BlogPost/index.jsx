@@ -1,4 +1,3 @@
-import { posts } from '../Feed/data';
 import styles from './blogpost.module.css';
 import { ThumbsUpButton } from '../../components/CardPost/ThumbsUpButton';
 import { Author } from '../../components/Author';
@@ -8,16 +7,26 @@ import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router';
 import { NotFound } from '../NotFound';
 import { ModalComment } from '../../components/ModalComment';
+import { useEffect, useState } from 'react';
 
 export const BlogPost = () => {
     const { slug } = useParams();
-
+    const [post, setPost] = useState(null);
     const navigate = useNavigate();
 
-    const post = posts.find((p) => p.slug == slug);
+    useEffect(() => {
+        fetch(`http://localhost:3000/blog-posts/slug/${slug}`)
+            .then((response) => {
+                if (response.status == 404) {
+                    navigate('/not-found');
+                }
+                return response.json();
+            })
+            .then((data) => setPost(data));
+    }, [slug, navigate]);
 
     if (!post) {
-        return <NotFound />; // Renderiza o componente diretamente aqui
+        return null;
     }
 
     return (
