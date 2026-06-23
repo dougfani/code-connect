@@ -12,21 +12,14 @@ export const CardPost = ({ post }) => {
     const [likes, setLikes] = useState(post.likes);
     const [comments, setComments] = useState(post.comments);
 
-    const token = localStorage.getItem('access_token')
-
-    const { isAuthenticated } = useAuth()
+    const { isAuthenticated } = useAuth();
 
     const handleNewComment = (comment) => {
-        setComments([comment, ...comments])
-    }
+        setComments([comment, ...comments]);
+    };
 
     const handleLikeButton = () => {
-        http.post(`blog-posts/${post.id}/like`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(() => {
+        http.post(`blog-posts/${post.id}/like`).then(() => {
             setLikes((oldState) => oldState + 1);
         });
     };
@@ -46,7 +39,11 @@ export const CardPost = ({ post }) => {
             <footer className={styles.footer}>
                 <div className={styles.actions}>
                     <div className={styles.action}>
-                        <ThumbsUpButton loading={false} onClick={handleLikeButton} disabled={!isAuthenticated} />
+                        <ThumbsUpButton
+                            loading={false}
+                            onClick={handleLikeButton}
+                            disabled={!isAuthenticated}
+                        />
                         <p>{likes}</p>
                     </div>
                     <div className={styles.action}>

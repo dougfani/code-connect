@@ -18,7 +18,6 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue = '', 
 
     const onSubmit = async (formData) => {
         const text = formData.get('text');
-        const token = localStorage.getItem('access_token');
 
         if (!text.trim()) return;
 
@@ -26,33 +25,17 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue = '', 
             setLoading(true);
 
             if (isEditing) {
-                http.patch(
-                    `/comments/${commentId}`,
-                    {
-                        text,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    },
-                ).then((response) => {
+                http.patch(`/comments/${commentId}`, {
+                    text,
+                }).then((response) => {
                     modalRef.current.closeModal();
                     onSuccess(response.data);
                     setLoading(false);
                 });
             } else {
-                http.post(
-                    `/comments/post/${postId}`,
-                    {
-                        text,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    },
-                ).then((response) => {
+                http.post(`/comments/post/${postId}`, {
+                    text,
+                }).then((response) => {
                     modalRef.current.closeModal();
                     onSuccess(response.data);
                     setLoading(false);
@@ -69,7 +52,13 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue = '', 
                     <Subheading>
                         {isEditing ? 'Editar comentário:' : 'Deixe seu comentário sobre o post:'}
                     </Subheading>
-                    <Textarea required rows={8} name="text" placeholder="Digite aqui..." defaultValue={defaultValue} />
+                    <Textarea
+                        required
+                        rows={8}
+                        name="text"
+                        placeholder="Digite aqui..."
+                        defaultValue={defaultValue}
+                    />
                     <div className={styles.footer}>
                         <Button disabled={loading} type="submit">
                             {loading ? (
