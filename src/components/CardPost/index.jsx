@@ -8,21 +8,13 @@ import { Link } from 'react-router';
 import { http } from '../../api';
 import { useAuth } from '../../hooks/useAuth';
 
+import { usePostInteractions } from '../../hooks/usePostInteractions'
+
 export const CardPost = ({ post }) => {
-    const [likes, setLikes] = useState(post.likes);
-    const [comments, setComments] = useState(post.comments);
+
+    const { likes, handleLikeButton, comments, handleNewComment } = usePostInteractions(post);
 
     const { isAuthenticated } = useAuth();
-
-    const handleNewComment = (comment) => {
-        setComments([comment, ...comments]);
-    };
-
-    const handleLikeButton = () => {
-        http.post(`blog-posts/${post.id}/like`).then(() => {
-            setLikes((oldState) => oldState + 1);
-        });
-    };
 
     return (
         <article className={styles.card}>
@@ -41,7 +33,7 @@ export const CardPost = ({ post }) => {
                     <div className={styles.action}>
                         <ThumbsUpButton
                             loading={false}
-                            onClick={handleLikeButton}
+                            onClick={() => handleLikeButton(post.id)}
                             disabled={!isAuthenticated}
                         />
                         <p>{likes}</p>

@@ -9,26 +9,17 @@ import { NotFound } from '../NotFound';
 import { ModalComment } from '../../components/ModalComment';
 import { useEffect, useState } from 'react';
 import { http } from '../../api';
+import { usePostInteractions } from '../../hooks/usePostInteractions';
+import { useAuth } from '../../hooks/useAuth';
 
 export const BlogPost = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
     const navigate = useNavigate();
-    const [comments, setComments] = useState([]);
+    // const [comments, setComments] = useState([]);
+    const { isAuthenticated } = useAuth();
 
-    const handleNewComment = (comment) => {
-        setComments([comment, ...comments]);
-    };
-
-    const handleDelete = (commentId) => {
-        const isConfirmed = confirm('Tem certeza que deseja remover o comentário?');
-
-        if (isConfirmed) {
-            http.delete(`comments/${commentId}`).then(() => {
-                setComments((oldState) => oldState.filter((c) => c.id != commentId));
-            });
-        }
-    };
+    const { likes, handleLikeButton, comments, handleNewComment, handleDeleteComment } = usePostInteractions(post);
 
     useEffect(() => {
         http.get(`blog-posts/slug/${slug}`)
@@ -62,8 +53,12 @@ export const BlogPost = () => {
                 <footer className={styles.footer}>
                     <div className={styles.actions}>
                         <div className={styles.action}>
-                            <ThumbsUpButton loading={false} />
-                            <p>{post.likes}</p>
+                            <ThumbsUpButton
+                                loading={false}
+                                onClick={() => handleLikeButton(post.id)}
+                                disabled={!isAuthenticated}
+                            />
+                            <p>{likes}</p>
                         </div>
                         <div className={styles.action}>
                             <ModalComment onSuccess={handleNewComment} postId={post?.id} />
@@ -77,7 +72,7 @@ export const BlogPost = () => {
             <div className={styles.code}>
                 <ReactMarkdown>{post.markdown}</ReactMarkdown>
             </div>
-            <CommentList comments={comments} onDelete={handleDelete} />
+            <CommentList comments={comments} onDelete={handleDeleteComment} />
         </main>
     );
 };
